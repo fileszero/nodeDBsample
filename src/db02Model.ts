@@ -1,4 +1,4 @@
-import { Sequelize, Table, Column, Model, HasMany } from "sequelize-typescript";
+import { Sequelize, Table, Column, Model, HasMany, DataType } from "sequelize-typescript";
 
 
 // see http://docs.sequelizejs.com/manual/installation/getting-started
@@ -17,6 +17,13 @@ class Person extends Model<Person> {
 
   @Column
   birthday: Date;
+
+  /**
+   * 長い文字列
+   */
+  @Column(DataType.TEXT)
+  address: string;
+
 
 }
 
@@ -39,17 +46,21 @@ const sequelize = new Sequelize({
 sequelize.addModels([Person]);
 
 async function entry() {
+
   await sequelize.sync();
 
 
   // INSERT
-  const person = new Person();
-  person.name = "おなまえ";
-  person.birthday = new Date(1975, 0, 1);
-  await person.save()
-    .catch(err => {
-      console.error("Error on the database:", err);
-    });
+  for (let i = 0; i < 3; i++) {
+    const person = new Person();
+    person.name = "おなまえ";
+    person.birthday = new Date(1975, 0, 1);
+    person.address = (i + 1) + "丁目";
+    await person.save()
+      .catch(err => {
+        console.error("Error on the database:", err);
+      });
+  }
 
   // SELECT
   const selected = await Person.findAll<Person>({ where: { name: "おなまえ" } })
