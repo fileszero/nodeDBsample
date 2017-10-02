@@ -1,0 +1,27 @@
+{
+  "name": "NodeTSSample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha ./dest/test/**/*.js",
+    "watch-test": "node node_modules/mocha/bin/mocha ./dest/test/**/*.js --watch ",
+    "build": "npm run build-ts && npm run tslint",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/assert": "0.0.31",
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.31",
+    "mocha": "^3.5.3",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.3"
+  },
+  "dependencies": {
+  }
+}
